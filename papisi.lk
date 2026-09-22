@@ -1,0 +1,457 @@
+
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title> — ලංකාවේ පාපිසි සඳහාම වෙන් වූ එකම web site එක</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EFE6D6;
+    --bg-alt: #E3D6BE;
+    --ink: #2B241C;
+    --ink-soft: #5B5045;
+    --rust: #A94E2A;
+    --rust-deep: #8A3D20;
+    --pine: #3B4A3C;
+    --card: #F7F1E4;
+    --line: rgba(43,36,28,0.14);
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #201A14;
+      --bg-alt: #29221A;
+      --ink: #EFE6D6;
+      --ink-soft: #C9BCA8;
+      --rust: #E1875A;
+      --rust-deep: #C96A3D;
+      --pine: #8FB08F;
+      --card: #29221A;
+      --line: rgba(239,230,214,0.16);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #201A14;
+    --bg-alt: #29221A;
+    --ink: #EFE6D6;
+    --ink-soft: #C9BCA8;
+    --rust: #E1875A;
+    --rust-deep: #C96A3D;
+    --pine: #8FB08F;
+    --card: #29221A;
+    --line: rgba(239,230,214,0.16);
+  }
+
+  * { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(70px + env(safe-area-inset-top, 0px));
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Work Sans', 'Noto Sans Sinhala', sans-serif;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow-x: hidden;
+    min-height: 100%;
+  }
+  .display, h1, h2, h3 {
+    font-family: 'Fraunces', 'Noto Sans Sinhala', serif;
+    font-weight: 500;
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px clamp(20px, 5vw, 56px);
+    background: linear-gradient(to bottom, rgba(32,26,20,0.55), transparent);
+  }
+  .logo { font-family: 'Fraunces', serif; font-size: 1.3rem; color: #F7F1E4; letter-spacing: 0.02em; }
+  .nav-links { display: flex; gap: clamp(14px, 3vw, 30px); }
+  .nav-links a {
+    color: #F7F1E4; text-decoration: none; font-size: 0.92rem; opacity: 0.9;
+  }
+  .nav-links a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: -8% -8%;
+    will-change: transform;
+  }
+  .hero-bg-inner {
+    position: absolute;
+    inset: -20%;
+    background: linear-gradient(120deg,
+      #16324A 0%,
+      #1F5C6B 20%,
+      #2C7A63 40%,
+      #4B9B5F 60%,
+      #8FCB6B 80%,
+      #2C7A63 100%);
+    background-size: 300% 300%;
+    animation: gradientShift 14s ease-in-out infinite;
+  }
+  @keyframes gradientShift {
+    0%   { background-position: 0% 40%; }
+    50%  { background-position: 100% 60%; }
+    100% { background-position: 0% 40%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-inner { animation: none; }
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,14,14,0.28) 0%, rgba(10,14,14,0.48) 60%, rgba(10,14,14,0.78) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 clamp(20px, 6vw, 70px);
+    max-width: 780px;
+  }
+  .eyebrow-mark {
+    display: inline-block;
+    width: 40px; height: 3px;
+    background: var(--rust);
+    margin-bottom: 18px;
+  }
+  #typewriter {
+    color: #F7F1E4;
+    font-size: clamp(1.8rem, 5.2vw, 3.4rem);
+    min-height: 1.3em;
+  }
+  #typewriter .cursor {
+    display: inline-block;
+    width: 3px;
+    background: #F7F1E4;
+    margin-left: 2px;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero-sub {
+    color: #D9CBB4;
+    font-size: 1.05rem;
+    margin-top: 22px;
+    max-width: 46ch;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: inline-block;
+    margin-top: 34px;
+    padding: 14px 30px;
+    background: var(--rust);
+    color: #F7F1E4;
+    text-decoration: none;
+    border-radius: 2px;
+    font-size: 0.95rem;
+    transition: background 0.2s ease;
+  }
+  .hero-cta:hover { background: var(--rust-deep); }
+
+  /* Gentle continuous floating motion on text, like SRJ's site */
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .float-text { animation: floatY 5.5s ease-in-out infinite; }
+  .float-text.delay { animation-delay: 0.9s; }
+  .float-text.delay2 { animation-delay: 1.6s; }
+  @media (prefers-reduced-motion: reduce) {
+    .float-text { animation: none; }
+  }
+
+  /* SECTIONS */
+  section { padding: clamp(60px, 10vw, 110px) clamp(20px, 6vw, 70px); }
+  .section-inner { max-width: 1080px; margin: 0 auto; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    #typewriter .cursor { animation: none; }
+  }
+
+  /* FEATURES */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  @media (max-width: 720px) { .features { grid-template-columns: 1fr; } }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 30px 26px;
+  }
+  .feature-icon {
+    width: 34px; height: 34px;
+    margin-bottom: 18px;
+    color: var(--rust);
+  }
+  .feature-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+  .feature-card p { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.65; margin: 0; }
+
+  /* ABOUT */
+  .about { background: var(--bg-alt); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(30px, 6vw, 64px);
+    align-items: center;
+  }
+  @media (max-width: 800px) { .about-grid { grid-template-columns: 1fr; } }
+  .about h2 { font-size: clamp(1.6rem, 3.6vw, 2.4rem); margin-bottom: 22px; }
+  .about p { color: var(--ink-soft); font-size: 1rem; line-height: 1.85; }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .swatch { aspect-ratio: 1; border-radius: 2px; }
+  .swatch:nth-child(1) { background: repeating-linear-gradient(90deg, #A94E2A 0 10px, #8A3D20 10px 20px); }
+  .swatch:nth-child(2) { background: repeating-linear-gradient(0deg, #3B4A3C 0 10px, #2A3529 10px 20px); }
+  .swatch:nth-child(3) { background: repeating-linear-gradient(45deg, #C97347 0 8px, #E3D6BE 8px 16px); }
+  .swatch:nth-child(4) { background: repeating-linear-gradient(135deg, #6E3018 0 12px, #A94E2A 12px 24px); }
+  .swatch:nth-child(5) { background: repeating-linear-gradient(90deg, #3B4A3C 0 8px, #6E7E6A 8px 16px); }
+  .swatch:nth-child(6) { background: repeating-linear-gradient(0deg, #8A3D20 0 14px, #C97347 14px 28px); }
+
+  /* CONTACT */
+  .contact h2 { font-size: clamp(1.6rem, 3.6vw, 2.4rem); margin-bottom: 16px; }
+  .contact > .section-inner > p { color: var(--ink-soft); max-width: 56ch; line-height: 1.8; margin-bottom: 38px; }
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .contact-card {
+    display: block;
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .contact-card .label { font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .contact-card .value { font-family: 'Fraunces', serif; font-size: 1.15rem; }
+  .contact-card:hover { border-color: var(--rust); }
+
+  .type-title .cursor {
+    display: inline-block;
+    width: 3px;
+    background: currentColor;
+    margin-left: 2px;
+    animation: blink 0.9s step-end infinite;
+  }
+
+  footer {
+    padding: 30px clamp(20px, 6vw, 70px) calc(30px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    font-size: 0.85rem; color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">papisi.lk</div>
+  <div class="nav-links">
+    <a href="#home">මුල් පිටුව</a>
+    <a href="#about">අප ගැන</a>
+    <a href="#contact">සම්බන්ධ වන්න</a>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg"><div class="hero-bg-inner"></div></div>
+  <div class="hero-content">
+    <span class="eyebrow-mark"></span>
+    <h1 class="display float-text" id="typewriter"></h1>
+    <p class="hero-sub float-text delay">උසස් තත්වයේ, අපේ අතින්ම නිමවූ රග්. පරිසර හිතකාමී ස්වාභාවික ද්‍රව්‍ය සමඟ, ස්වදේශීය කලාකරුවන්ට සහය දෙමින්.</p>
+    <a href="#contact" class="hero-cta">අප හා සම්බන්ධ වන්න</a>
+  </div>
+</section>
+
+<section id="features">
+  <div class="section-inner features">
+    <div class="feature-card reveal">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>
+      <h3 class="float-text">උසස් තත්වය</h3>
+      <p class="float-text delay">අපේ අතින්ම නිමවූ, ගුණාත්මකභාවයෙන් යුත් රග් එකතුව.</p>
+    </div>
+    <div class="feature-card reveal">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3C7 8 4 11 4 15a8 8 0 0 0 16 0c0-4-3-7-8-12z"/></svg>
+      <h3 class="float-text delay">පරිසර හිතකාමී ද්‍රව්‍ය</h3>
+      <p class="float-text delay2">ස්වාභාවික හා නැවත භාවිත කළ හැකි ද්‍රව්‍යවලින් නිමවේ.</p>
+    </div>
+    <div class="feature-card reveal">
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-4 3-6.5 7-6.5S19 16 19 20"/></svg>
+      <h3 class="float-text">දේශීය සහය</h3>
+      <p class="float-text delay">ස්වදේශීය කලාකරුවන්ට සහය දෙන, ලංකාවේම නිර්මාණයක්.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="section-inner about-grid">
+    <div class="reveal">
+      <h2 class="type-title float-text">අප ගැන</h2>
+      <p class="float-text delay">අපි ඔබේ නිවසට ලස්සන සහ සුවපහසුව එක් කරන රග් නිර්මාණය සහ අලෙවි කරන ආයතනයක්. විවිධ වර්ණ, මෝස්තර සහ ප්‍රමාණවලින් යුත් රග් එකතුවක් අප සතුව ඇති අතර, ඔබේ නිවසේ හැඩයට සහ ඔබේ කැමැත්තට ගැලපෙන රග් එකක් තෝරාගැනීමට අපි ඔබට අවස්ථාව ලබා දෙන්නෙමු. හොඳ තත්ත්වයේ රග්, සාධාරණ මිලකට ලබාදීම සහ පාරිභෝගිකයන්ට හොඳ සේවාවක් ලබාදීම අපගේ ප්‍රධාන අරමුණයි. ඔබේ නිවසේ සෑම කුඩා ඉඩක්ම ලස්සන කරන්න, අප සමඟ එක්වන්න.</p>
+    </div>
+    <div class="swatches reveal">
+      <div class="swatch float-text"></div><div class="swatch float-text delay"></div><div class="swatch float-text delay2"></div>
+      <div class="swatch float-text delay"></div><div class="swatch float-text delay2"></div><div class="swatch float-text"></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <h2 class="reveal type-title float-text">අප හා සම්බන්ධ වන්න</h2>
+    <p class="reveal float-text delay">ඔබට අවශ්‍ය පාපිසි එක තෝරාගැනීමට හෝ වැඩි විස්තර දැනගැනීමට අප හා සම්බන්ධ වන්න. ඔබගේ ගැටලු සහ අවශ්‍යතා සඳහා අපි සතුටින් ඔබට සහය වන්නෙමු.</p>
+    <div class="contact-cards reveal">
+      <a class="contact-card float-text" href="tel:+94775827047">
+        <div class="label">Call</div>
+        <div class="value">077 582 7047</div>
+      </a>
+      <a class="contact-card float-text delay" href="tel:+94751225931">
+        <div class="label">Call</div>
+        <div class="value">075 122 5931</div>
+      </a>
+      <a class="contact-card float-text delay2" href="https://wa.me/94751225931" target="_blank" rel="noopener">
+        <div class="label">WhatsApp</div>
+        <div class="value">075 122 5931</div>
+      </a>
+      <a class="contact-card float-text" href="https://maps.app.goo.gl/DEUm6MsXxG82En4HA" target="_blank" rel="noopener">
+        <div class="label">Location</div>
+        <div class="value">Map එකෙන් බලන්න</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="float-text">© papisi.lk — සියලුම හිමිකම් ඇවිරිණි.</span>
+  <span class="float-text delay">ලංකාවේ පාපිසි සඳහාම වෙන් වූ එකම web site එක.</span>
+</footer>
+
+<script>
+  // Looping typewriter effect for hero title (type, pause, delete, retype)
+  const text = "ලංකාවේ පාපිසි සඳහාම වෙන් වූ එකම web site එක";
+  const el = document.getElementById('typewriter');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function render(count) {
+    el.innerHTML = text.slice(0, count) + '<span class="cursor">&nbsp;</span>';
+  }
+
+  function loop(i = 0, deleting = false) {
+    render(i);
+    let delay = deleting ? 30 : 55;
+    if (!deleting && i === text.length) delay = 2200;      // pause when fully typed
+    else if (deleting && i === 0) delay = 500;              // pause when fully deleted
+
+    let nextI = i, nextDeleting = deleting;
+    if (!deleting) {
+      if (i < text.length) nextI = i + 1;
+      else nextDeleting = true;
+    } else {
+      if (i > 0) nextI = i - 1;
+      else nextDeleting = false;
+    }
+    setTimeout(() => loop(nextI, nextDeleting), delay);
+  }
+
+  if (reduceMotion) {
+    el.textContent = text;
+  } else {
+    loop();
+  }
+
+  // Parallax hero background on scroll
+  const heroBg = document.getElementById('heroBg');
+  function parallax() {
+    const y = window.scrollY;
+    heroBg.style.transform = 'translateY(' + (y * 0.35) + 'px)';
+  }
+  window.addEventListener('scroll', parallax, { passive: true });
+
+  // Scroll reveal for section titles/cards
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Section titles retype every time they scroll into view (up or down)
+  const titleEls = document.querySelectorAll('.type-title');
+  titleEls.forEach(titleEl => {
+    const fullText = titleEl.textContent;
+    titleEl.dataset.text = fullText;
+    titleEl.textContent = '';
+    let timer = null;
+
+    function typeTitle() {
+      clearTimeout(timer);
+      let i = 0;
+      function step() {
+        titleEl.innerHTML = fullText.slice(0, i) + '<span class="cursor">&nbsp;</span>';
+        i++;
+        if (i <= fullText.length) timer = setTimeout(step, 55);
+        else titleEl.innerHTML = fullText;
+      }
+      step();
+    }
+
+    if (reduceMotion) {
+      titleEl.textContent = fullText;
+    } else {
+      const titleIo = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            typeTitle();
+          } else {
+            clearTimeout(timer);
+            titleEl.textContent = '';
+          }
+        });
+      }, { threshold: 0.4 });
+      titleIo.observe(titleEl);
+    }
+  });
+</script>
+
+</body>
+</html>
